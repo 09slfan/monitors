@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChimePlayer Demo</title>
+    <meta charset="utf-8">
+    <meta name="description" content="ChimePlayer Demo">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="chimee-player.browser.css">
+    <style type="text/css">
+ *::-webkit-media-controls-enclosure {
+      display:none !important;
+      -webkit-appearance: none;
+    }
+    *::-webkit-media-controls-panel {
+      display: none!important;
+      -webkit-appearance: none;
+    }
+    *::-webkit-media-controls-panel-container {
+      display: none!important;
+      -webkit-appearance: none;
+    }
+    *::--webkit-media-controls-play-button {
+      display: none!important;
+      -webkit-appearance: none;
+    }
+    *::-webkit-media-controls-start-playback-button {
+      display: none!important;
+      -webkit-appearance: none;
+    }
+    *::-webkit-media-controls {
+    display: none!important;
+    -webkit-appearance: none;
+    }
+    </style>
+</head>
+<body>
+
+    <section id="wrapper" class="chimee-container">
+        <video tabindex="-1" x5-video-player-type="h5" x5-video-player-fullscreen="false"></video>
+    </section>
+    <script src="chimee-player.browser.js"></script>
+    <script src="https://s.ssl.qhres.com/static/af3c1d4b462cc178/jquery.js" ></script>
+    <script type="text/javascript">
+        var player;
+        // 配置变化则销毁现有播放器，并重建新的播放器
+        function rebuildPlayer () {
+          player && player.destroy();
+          player = new ChimeePlayer({
+            src: 'https://ycplay2.yunchuanglive.com/live/yctbkh-jxxhb001.m3u8',
+            isLive: true,
+            box: 'hls',
+            poster:'',
+            wrapper: '#wrapper',
+            autoplay: true,
+            preload: 'none',
+            controls: true
+          });
+        }
+        $(function(){
+            rebuildPlayer();
+        }); 
+
+    </script>
+</body>
+</html>

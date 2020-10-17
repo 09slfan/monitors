@@ -1,0 +1,149 @@
+<link href="__ADMIN_TMPL__/public/assets/css/main.css" rel="stylesheet">
+<script src="__STATIC__/js/highchart/highcharts.js?v=1"></script>
+<div class="panel panel-default">
+
+    <div class="col-md-12">
+        <div class="wei_header">
+            <div class="d-flex wei_time">
+                <span class="mr15">{$time.today}</span> 
+                <span class="mr15">{$time.week}</span>
+            </div>
+            <div class="d-flex wei_greeting">
+                <h2 class="wei_name">
+                    <span class="mr15">您好，{$time.moment}</span>
+                </h2>
+            </div>
+            <div class="d-flex wei_greeting">
+                <p class="wei_message">
+                    <span class="mr15">{$time.warm}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+            
+
+            <div class="panel-body home-info">
+                <div class="col-md-3">
+                    <div class="card card-body align-items-center">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <p class="card-text text-muted mb-1">学校数</p>
+                                <h1 class="mb-0 font-weight-normal">{$data.school}</h1>
+                            </div>
+                            <a class="label label-default" href="{:url('organization/admin_index/index')}">查看</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-body align-items-center">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <p class="card-text text-muted mb-1">学校食堂数</p>
+                                <h1 class="mb-0 font-weight-normal">{$data.canteen}</h1>
+                            </div>
+                            <a class="label label-warning" href="{:url('organization/admin_index/canteen')}">去查阅</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-body align-items-center">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <p class="card-text text-muted mb-1">家长数</p>
+                                <h1 class="mb-0 font-weight-normal">{$data.parent}</h1>
+                            </div>
+                            <a class="label label-success" href="{:url('user/admin_index/parent')}">查看</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-body align-items-center">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <p class="card-text text-muted mb-1">会员数</p>
+                                <h1 class="mb-0 font-weight-normal">{$data.vip}</h1>
+                            </div>
+                            <a class="label label-primary" href="{:url('finance/admin_index/user')}">查看</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div class="col-md-7" id="user-column">
+                </div>
+                <div class="col-md-5" id="user-bar">
+                </div>
+            </div>
+        </div>
+
+
+<script type="text/javascript">
+
+Highcharts.chart('user-bar', {
+    title: {
+        text: "{$month} {$bar_title}"
+    },
+    chart: {
+        backgroundColor:'none'
+    },
+    tooltip: {
+        headerFormat: '{series.name}<br>',
+        pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            dataLabels: {
+                distance: -50,
+                style: {
+                    fontWeight: 'bold',
+                    color: 'white',
+                    textShadow: '0px 1px 2px black'
+                },
+                enabled: true,
+                format: '<b>{point.name}</b><br>{point.y} ({point.percentage:.1f}%)'
+            }
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: '比例',
+        colorByPoint: true,
+        data: {$in}
+    }]
+});
+
+Highcharts.chart('user-column', {
+    chart: {
+        type: 'column',
+    },
+    
+    title: {
+        text: "{$month} {$title}",
+    },
+    tooltip: {
+        headerFormat: '{series.name}<br>',
+        pointFormat: "{$month}-"+'{point.name}: <b>{point.y}</b>人'
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        allowDecimals:false,
+        title: {
+            text: '登录访问量'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+        }
+    },
+    series: [{
+        name: '登录访问量',
+        colorByPoint: true,
+        data: {$ydata}
+    }]
+});
+</script>
